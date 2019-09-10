@@ -59,28 +59,42 @@
 //   xhr.send();
 // });
 $(function() {
-  $("#getPosts").on("click", function() {
+  function showLoader() {
+    $(".loader").show();
+  }
+
+  function hideLoader() {
+    $(".loader").hide();
+  }
+
+  $("#getData1").on("click", function() {
     $.ajax({
       method: "GET",
       url: "https://jsonplaceholder.typicode.com/posts/",
       beforeSend: function() {
-        $(".loader").show();
+        showLoader();
       }
     })
       .done(function(res) {
         $.each(res, function(i, v) {
           const li =
             "<li data-posts-id=" + res[i].id + ">" + res[i].title + "</li>";
-          $("#posts > ul").append(li);
+          $("#data1 > ul").append(li);
         });
-        $(".loader").hide();
       })
       .fail(function(err) {
         console.log(err);
       })
       .always(function() {
-        console.log("always fired");
+        hideLoader();
       });
   });
-  function showLoader() {}
+
+  fetch("https://reqres.in/api/users?page=2")
+    .then(res => {
+      return res.json();
+    })
+    .then(json => {
+      console.log(json);
+    });
 });

@@ -7,6 +7,9 @@ body {
   border: 1px solid #dddfe2;
   border-radius: 4px;
   padding: 0.5rem;
+  min-height: 50vh;
+  max-height: 50vh;
+  overflow-x: auto;
 }
 
 .loader {
