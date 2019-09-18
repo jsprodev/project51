@@ -77,8 +77,7 @@ $(function() {
     })
       .done(function(res) {
         $.each(res, function(i, v) {
-          const li =
-            "<li data-posts-id=" + res[i].id + ">" + res[i].title + "</li>";
+          const li = "<li data-posts-id=" + v.id + ">" + v.title + "</li>";
           $("#data1 > ul").append(li);
         });
       })
@@ -90,11 +89,15 @@ $(function() {
       });
   });
 
-  fetch("https://reqres.in/api/users?page=2")
-    .then(res => {
-      return res.json();
-    })
-    .then(json => {
-      console.log(json);
-    });
+  $("#getData2").on("click", function() {
+    fetch("https://reqres.in/api/users?page=2")
+      .then(res => res.json())
+      .then(json => {
+        json.data.forEach(value => {
+          const li =
+            "<li data-item-id=" + value.id + ">" + value.first_name + "</li>";
+          $("#data2 > ul").append(li);
+        });
+      });
+  });
 });
