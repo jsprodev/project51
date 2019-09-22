@@ -9,6 +9,14 @@
       integrity="sha256-YLGeXaapI0/5IgZopewRJcFXomhRMlYYjugPLSyNjTY="
       crossorigin="anonymous"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css"
+    />
     <link rel="stylesheet" href="custom.css" />
     <title>Project 51</title>
   </head>
@@ -42,18 +50,32 @@
             Get Posts
           </button>
           <div class="card-layout mt-3" id="data1">
-            <div class="loader" style="display: none"></div>
             <ul></ul>
           </div>
         </div>
         <div class="col">
           <button class="btn btn-sm btn-primary" id="getData2">
-            Get Albums
+            Get Users
           </button>
           <div class="card-layout mt-3" id="data2">
+            <table
+              id="dataTable"
+              class="table table-striped table-bordered"
+              style="display:none"
+            >
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                </tr>
+              </thead>
+            </table>
             <ul></ul>
           </div>
         </div>
+      </div>
+      <div class="row mt-3">
         <div class="col">
           <button class="btn btn-sm btn-primary" id="getData3">
             Get Something
@@ -74,6 +96,8 @@
       integrity="sha256-CjSoeELFOcH0/uxWu6mC/Vlrc1AARqbm/jiiImDGV3s="
       crossorigin="anonymous"
     ></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
     <script src="app.js"></script>
   </body>
 </html>
