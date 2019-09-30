@@ -43,4 +43,49 @@ $(function() {
         columns: [{ data: "id" }, { data: "first_name" }, { data: "last_name" }]
       });
   });
+
+  let user = true;
+
+  let getData = new Promise((resolved, rejected) => {
+    if (user) {
+      const msg = "user found";
+      resolved(msg);
+    } else {
+      const msg = new Error("no user");
+      rejected(msg);
+    }
+  });
+
+  let functionReturningPromise = msg => {
+    console.log(msg);
+    let data = {
+      id: 001,
+      email: `user@example.com`,
+      name: "John Doe",
+      admin: true
+    };
+    return new Promise((resolved, rejected) => {
+      if (data.admin) {
+        resolved(data);
+      } else {
+        const msg = new Error("User is not admin, promise rejected");
+        rejected(msg);
+      }
+    });
+  };
+
+  getData
+    .then(functionReturningPromise)
+    .then(resolved => {
+      console.log(`User Data: 
+                      id: ${resolved.id},
+                      name: ${resolved.name},
+                      email: ${resolved.email}`);
+    })
+    .catch(rejected => {
+      console.log(rejected);
+    })
+    .catch(rejected => {
+      console.log(rejected);
+    });
 });
