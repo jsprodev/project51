@@ -1,6 +1,7 @@
 import navbar from "./views/navbar.js";
 import footer from "./views/footer.js";
 import home from "./views/home.js";
+import parser from "./services/parser.js";
 
 const navbarE = document.getElementById("navbar");
 navbarE.innerHTML = navbar.render();
@@ -10,6 +11,13 @@ footerE.innerHTML = footer.render();
 
 const contentE = document.getElementById("content");
 contentE.innerHTML = home.render();
+
+console.log(location.href);
+console.log(location.href.split("/"));
+let url = parser.parseRequestURL();
+console.log(url);
+
+// location.hash.slice(1).toLowerCase() || "/";
 
 $(function() {
   function showLoader() {
