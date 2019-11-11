@@ -1,102 +1,108 @@
-import navbar from "./views/navbar.js";
-import footer from "./views/footer.js";
-import home from "./views/home.js";
-import parser from "./services/parser.js";
+import Navbar from "./views/navbar.js";
+import Footer from "./views/footer.js";
+import Home from "./views/home.js";
+import UserDetails from "./views/UserDetails.js";
+import Error404 from "./views/Error.js";
+import Parser from "./services/URLparser.js";
 
-const navbarE = document.getElementById("navbar");
-navbarE.innerHTML = navbar.render();
+const routes = {
+  "/": Home,
+  "/users/:id": UserDetails
+};
 
-const footerE = document.getElementById("footer");
-footerE.innerHTML = footer.render();
+let router = async () => {
+  const navbarE = document.getElementById("navbar");
+  navbarE.innerHTML = Navbar.render();
 
-const contentE = document.getElementById("content");
-contentE.innerHTML = home.render();
+  const footerE = document.getElementById("footer");
+  footerE.innerHTML = Footer.render();
 
-console.log(location.href);
-console.log(location.href.split("/"));
-let url = parser.parseRequestURL();
-console.log(url);
+  const contentE = document.getElementById("content");
+  contentE.innerHTML = Home.render();
+
+  // Get the parsed URl from the addressbar
+  let request = Parser.parseRequestURL();
+
+  // Parse the URL and if it has an id part, change it with the string ":id"
+  let parsedURL =
+    (request.resource ? "/" + request.resource : "/") +
+    (request.id ? "/:id" : "") +
+    (request.verb ? "/" + request.verb : "");
+
+  // Get the page from our hash of supported routes.
+  // If the parsed URL is not in our list of supported routes, select the 404 page instead
+  let page = routes[parsedURL] ? routes[parsedURL] : Error404;
+  content.innerHTML = await page.render();
+  // await page.after_render();
+};
+
+// Listen on hash change:
+window.addEventListener("hashchange", router);
+// Listen on page load:
+window.addEventListener("load", router);
+
+// console.log(location);
+// console.log(location.hash);
+// let url = Parser.parseRequestURL();
+// console.log(url);
 
 // location.hash.slice(1).toLowerCase() || "/";
 
-$(function() {
-  function showLoader() {
-    $(this)
-      .siblings(".card-layout")
-      .append('<div class="loader" style="display: none"></div>');
+// $(function() {
+//   function showLoader() {
+//     $(this)
+//       .siblings(".card-layout")
+//       .append('<div class="loader" style="display: none"></div>');
 
-    $(".loader").show();
-  }
+//     $(".loader").show();
+//   }
 
-  function hideLoader() {
-    $(".loader").hide();
-  }
+//   function hideLoader() {
+//     $(".loader").hide();
+//   }
 
-  $("#getData2").on("click", function() {
-    $("#dataTable")
-      .css({ display: "table" })
-      .DataTable({
-        ajax: "https://reqres.in/api/users?page=2",
-        columns: [
-          { data: "id" },
-          { data: "first_name" },
-          {
-            data: "last_name",
-            fnCreatedCell: function(nTd, sData, oData, iRow, iCol) {
-              console.log(
-                nTd + " " + sData + " " + oData.id + " " + iRow + " " + iCol
-              );
-              $(nTd).html(
-                "<a href='/users/" + oData.id + "'>" + oData.last_name + "</a>"
-              );
-            }
-          }
-        ]
-      });
-  });
+//   // let user = true;
 
-  //   // let user = true;
+//   // let getData = new Promise((resolved, rejected) => {
+//   //   if (user) {
+//   //     const msg = "user found";
+//   //     resolved(msg);
+//   //   } else {
+//   //     const msg = new Error("no user");
+//   //     rejected(msg);
+//   //   }
+//   // });
 
-  //   // let getData = new Promise((resolved, rejected) => {
-  //   //   if (user) {
-  //   //     const msg = "user found";
-  //   //     resolved(msg);
-  //   //   } else {
-  //   //     const msg = new Error("no user");
-  //   //     rejected(msg);
-  //   //   }
-  //   // });
+//   // let functionReturningPromise = msg => {
+//   //   console.log(msg);
+//   //   let data = {
+//   //     id: 001,
+//   //     email: `user@example.com`,
+//   //     name: "John Doe",
+//   //     admin: true
+//   //   };
+//   //   return new Promise((resolved, rejected) => {
+//   //     if (data.admin) {
+//   //       resolved(data);
+//   //     } else {
+//   //       const msg = new Error("User is not admin, promise rejected");
+//   //       rejected(msg);
+//   //     }
+//   //   });
+//   // };
 
-  //   // let functionReturningPromise = msg => {
-  //   //   console.log(msg);
-  //   //   let data = {
-  //   //     id: 001,
-  //   //     email: `user@example.com`,
-  //   //     name: "John Doe",
-  //   //     admin: true
-  //   //   };
-  //   //   return new Promise((resolved, rejected) => {
-  //   //     if (data.admin) {
-  //   //       resolved(data);
-  //   //     } else {
-  //   //       const msg = new Error("User is not admin, promise rejected");
-  //   //       rejected(msg);
-  //   //     }
-  //   //   });
-  //   // };
-
-  //   // getData
-  //   //   .then(functionReturningPromise)
-  //   //   .then(resolved => {
-  //   //     console.log(`User Data:
-  //   //                     id: ${resolved.id},
-  //   //                     name: ${resolved.name},
-  //   //                     email: ${resolved.email}`);
-  //   //   })
-  //   //   .catch(rejected => {
-  //   //     console.log(rejected);
-  //   //   })
-  //   //   .catch(rejected => {
-  //   //     console.log(rejected);
-  //   //   });
-});
+//   // getData
+//   //   .then(functionReturningPromise)
+//   //   .then(resolved => {
+//   //     console.log(`User Data:
+//   //                     id: ${resolved.id},
+//   //                     name: ${resolved.name},
+//   //                     email: ${resolved.email}`);
+//   //   })
+//   //   .catch(rejected => {
+//   //     console.log(rejected);
+//   //   })
+//   //   .catch(rejected => {
+//   //     console.log(rejected);
+//   //   });
+// });

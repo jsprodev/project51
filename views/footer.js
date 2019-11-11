@@ -1,4 +1,4 @@
-const footer = {
+const Footer = {
   render: () => {
     return `
         <footer class="py-4 bg-dark text-white-50">
@@ -10,4 +10,4 @@ const footer = {
   }
 };
 
-export default footer;
+export default Footer;

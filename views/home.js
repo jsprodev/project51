@@ -14,7 +14,30 @@ window.getPosts = () => {
     });
 };
 
-let home = {
+window.getUsers = () => {
+  $("#dataTable")
+    .css({ display: "table" })
+    .DataTable({
+      ajax: "https://reqres.in/api/users?page=2",
+      columns: [
+        { data: "id" },
+        { data: "first_name" },
+        {
+          data: "last_name",
+          fnCreatedCell: function(nTd, sData, oData, iRow, iCol) {
+            console.log(
+              nTd + " " + sData + " " + oData.id + " " + iRow + " " + iCol
+            );
+            $(nTd).html(
+              "<a href='#/users/" + oData.id + "'>" + oData.last_name + "</a>"
+            );
+          }
+        }
+      ]
+    });
+};
+
+let Home = {
   render: () => {
     let view = `
         <div class="container mt-3">
@@ -28,7 +51,7 @@ let home = {
                     </div>
                 </div>
                 <div class="col">
-                    <button class="btn btn-sm btn-primary" id="getData2">
+                    <button class="btn btn-sm btn-primary" onclick="getUsers()">
                         Get Users
                     </button>
                     <div class="card-layout mt-3" id="data2">
@@ -59,4 +82,4 @@ let home = {
   }
 };
 
-export default home;
+export default Home;

@@ -1,4 +1,4 @@
-let navbar = {
+let Navbar = {
   render: () => {
     let view = `
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -27,4 +27,4 @@ let navbar = {
   }
 };
 
-export default navbar;
+export default Navbar;
