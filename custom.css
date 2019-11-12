@@ -2,6 +2,10 @@ body {
   background: #e9ebee;
 }
 
+#content {
+  min-height: 100vh;
+}
+
 .card-layout {
   background: white;
   border: 1px solid #dddfe2;

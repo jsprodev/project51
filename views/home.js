@@ -21,15 +21,14 @@ window.getUsers = () => {
       ajax: "https://reqres.in/api/users?page=2",
       columns: [
         { data: "id" },
-        { data: "first_name" },
         {
-          data: "last_name",
+          data: "first_name",
           fnCreatedCell: function(nTd, sData, oData, iRow, iCol) {
             console.log(
               nTd + " " + sData + " " + oData.id + " " + iRow + " " + iCol
             );
             $(nTd).html(
-              "<a href='#/users/" + oData.id + "'>" + oData.last_name + "</a>"
+              "<a href='#/users/" + oData.id + "'>" + oData.first_name + "</a>"
             );
           }
         }
@@ -60,7 +59,6 @@ let Home = {
                                 <tr>
                                 <th>ID</th>
                                 <th>First Name</th>
-                                <th>Last Name</th>
                                 </tr>
                             </thead>
                         </table>
