@@ -1,9 +1,13 @@
+import { showLoader, hideLoader } from "../services/loader.js";
+
 window.getPosts = () => {
   fetch("https://jsonplaceholder.typicode.com/posts/")
     .then(response => {
+      showLoader.show();
       return response.json();
     })
     .then(json => {
+      hideLoader.hide();
       json.forEach(v => {
         const ul = document.querySelector("#data1 > ul");
         const li = document.createElement("li");
