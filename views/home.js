@@ -1,13 +1,12 @@
 import { showLoader, hideLoader } from "../services/loader.js";
 
 window.getPosts = () => {
+  showLoader.show();
   fetch("https://jsonplaceholder.typicode.com/posts/")
     .then(response => {
-      showLoader.show();
       return response.json();
     })
     .then(json => {
-      hideLoader.hide();
       json.forEach(v => {
         const ul = document.querySelector("#data1 > ul");
         const li = document.createElement("li");
@@ -15,6 +14,7 @@ window.getPosts = () => {
         li.setAttribute("data-posts-id", v.id);
         ul.appendChild(li);
       });
+      hideLoader.hide();
     });
 };
 
@@ -22,15 +22,18 @@ window.getUsers = () => {
   $("#dataTable")
     .css({ display: "table" })
     .DataTable({
-      ajax: "https://reqres.in/api/users?page=2",
+      ajax: {
+        url: "https://reqres.in/api/users?page=2",
+        type: "GET"
+        // beforeSend: function() {
+        //   showLoader.show();
+        // }
+      },
       columns: [
         { data: "id" },
         {
           data: "first_name",
           fnCreatedCell: function(nTd, sData, oData, iRow, iCol) {
-            console.log(
-              nTd + " " + sData + " " + oData.id + " " + iRow + " " + iCol
-            );
             $(nTd).html(
               "<a href='#/users/" + oData.id + "'>" + oData.first_name + "</a>"
             );

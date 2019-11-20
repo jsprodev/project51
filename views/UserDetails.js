@@ -3,14 +3,14 @@ import { showLoader, hideLoader } from "../services/loader.js";
 
 let getUser = async id => {
   let userData;
+  showLoader.show();
   await fetch("https://reqres.in/api/users?id=" + id)
     .then(res => {
-      // showLoader.show();
       return res;
     })
     .then(json => {
       userData = json.json();
-      // hideLoader.hide();
+      hideLoader.hide();
     });
   return userData;
 };
@@ -19,7 +19,6 @@ let UserDetails = {
   render: async () => {
     let request = Parser.parseRequestURL();
     let id = request.id;
-    // showLoader.show();
     let data = await getUser(id);
     console.log(data);
     return `

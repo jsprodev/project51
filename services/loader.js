@@ -3,14 +3,16 @@ let showLoader = {
     const loadingImage = `<div id="loading">
                             <div id="loading-image" alt="Loading..." />
                         </div>`;
-    const body = document.querySelector("body");
+    const body = document.querySelector("#content");
     body.innerHTML += loadingImage;
   }
 };
 
 let hideLoader = {
   hide: () => {
-    document.querySelector("#loading").outerHTML = "";
+    let loader = document.querySelector("#loading");
+    loader.parentNode.removeChild(loader);
+    // document.querySelector("#loading").outerHTML = "";
   }
 };
 
