@@ -2,7 +2,7 @@ import Navbar from "./views/navbar.js";
 import Footer from "./views/footer.js";
 import Home from "./views/home.js";
 import UserDetails from "./views/UserDetails.js";
-import Error404 from "./views/Error.js";
+import Error404 from "./views/Error404.js";
 import Parser from "./services/URLparser.js";
 
 const routes = {
