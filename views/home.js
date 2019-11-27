@@ -43,6 +43,22 @@ window.getUsers = () => {
     });
 };
 
+window.postData = async () => {
+  let form = document.querySelector("#submitUserForm");
+  const formData = new FormData(form);
+  let response = await fetch("https://reqres.in/api/users", {
+    method: "POST",
+    body: formData,
+    mode: "cors",
+    headers: {
+      "Content-Type": "multipart/form-data"
+      // "Content-Type": "application/x-www-form-urlencoded",
+      // "Content-Type": "application/json"
+    }
+  });
+  console.log(await response.json());
+};
+
 let Home = {
   render: () => {
     let view = `
@@ -75,10 +91,23 @@ let Home = {
             </div>
             <div class="row mt-3 mb-3">
                 <div class="col">
-                    <button class="btn btn-sm btn-primary" id="getData3">
-                        Get Something
-                    </button>
-                    <div class="card-layout mt-3" id="data3"></div>
+                    <div class="card-layout mt-3" id="data3">
+                      <form id="submitUserForm">
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                              <label for="userName">Name</label>
+                              <input type="text" class="form-control" name="name"  placeholder="Name">
+                          </div>
+                          <div class="form-group col-md-6">
+                                <label for="userJob">Job</label>
+                                <input type="text" class="form-control" name="job" placeholder="Job">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <a class="btn btn-primary btn-sm" id="submitBtn" onclick="postData()" >Submit</a>
+                          </div>
+                        </div>
+                      </form>
+                  </div>
                 </div>
             </div>
         </div>
