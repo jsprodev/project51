@@ -1,5 +1,8 @@
 import Parser from "../services/URLparser.js";
-import { showLoader, hideLoader } from "../services/loader.js";
+import {
+  showLoader,
+  hideLoader
+} from "../services/loader.js";
 
 let getUser = async id => {
   let userData;
