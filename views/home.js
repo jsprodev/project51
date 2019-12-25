@@ -3,8 +3,6 @@ import {
   hideLoader
 } from "../services/loader.js";
 
-
-
 const getPosts = () => {
   showLoader.show();
   fetch("https://jsonplaceholder.typicode.com/posts/")
@@ -22,7 +20,6 @@ const getPosts = () => {
       hideLoader.hide();
     });
 };
-
 
 window.getUsers = () => {
   $("#dataTable")

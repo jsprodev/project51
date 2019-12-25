@@ -32,8 +32,8 @@ let router = async () => {
   // Get the page from our hash of supported routes.
   // If the parsed URL is not in our list of supported routes, select the 404 page instead
   let page = routes[parsedURL] ? routes[parsedURL] : Error404;
-  content.innerHTML = await page.render();
-  page.registerEvents();
+  contentE.innerHTML = await page.render();
+  parsedURL === '/' ? page.registerEvents() : false;
   // await page.after_render();
 };
 
